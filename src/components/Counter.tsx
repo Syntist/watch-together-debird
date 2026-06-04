@@ -1,5 +1,5 @@
-import { createEffect, createMemo } from "solid-js";
-import { store, setStore } from "~/app";
+import { createEffect, createMemo, For } from "solid-js";
+import { setStore, store } from "~/app";
 
 export default function Counter() {
   createEffect(() => {
@@ -24,6 +24,8 @@ export default function Counter() {
       >
         Clicks: {store.count}
       </button>
+      <For each={["admin", "editor", "viewer"]}>{(role) => (
+        <div>{role}</div>)}</For>
 
       <div>
         <button
