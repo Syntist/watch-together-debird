@@ -1,32 +1,22 @@
-# SolidStart
+# Watch Party Debrid
 
-Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);
-
-## Creating a project
-
-```bash
-# create a new project in the current directory
-npm init solid@latest
-
-# create a new project in my-app
-npm init solid@latest my-app
-```
+No-login watch party MVP for manually supplied browser-playable debrid stream URLs.
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm run build
+npm run start
 ```
 
-## Building
+Open `http://127.0.0.1:3000`, paste a direct `http` or `https` stream URL on the landing page, and share the generated `/watch/<roomId>` link.
 
-Solid apps are built with _presets_, which optimise your project for deployment to different environments.
+`npm run dev` still runs the Vite development server for UI work, but this SolidStart alpha only wires the Nitro WebSocket route in the built server path.
 
-By default, `npm run build` will generate a Node app that you can run with `npm start`. To use a different preset, add it to the `devDependencies` in `package.json` and specify in your `app.config.js`.
+## Behavior
 
-## This project was created with the [Solid CLI](https://github.com/solidjs-community/solid-cli)
+- Rooms are anonymous and identified by the URL.
+- The SolidStart/Nitro WebSocket endpoint is `/ws?room=<roomId>`.
+- Room state is stored in memory and resets when the server restarts.
+- The player syncs stream URL, play, pause, seek, late joins, and periodic playback position.
+- Debrid links must be direct browser-playable media URLs. Provider CORS or hotlink rules can still block playback.
